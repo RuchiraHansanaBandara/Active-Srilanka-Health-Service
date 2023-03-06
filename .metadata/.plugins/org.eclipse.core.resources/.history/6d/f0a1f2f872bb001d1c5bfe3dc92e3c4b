@@ -1,0 +1,28 @@
+package appointmentcheckconsumer;
+
+import org.osgi.framework.BundleActivator;
+
+import java.util.Scanner;
+
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+import appointmentcheckproducer.AppointmentCheckProduce;
+
+public class Activator implements BundleActivator {
+
+	ServiceReference appointmentcheckpublisherReference;
+	
+	Scanner input = new Scanner(System.in);
+	int command;
+
+	public void start(BundleContext context) throws Exception {
+		appointmentcheckpublisherReference = context.getServiceReference(AppointmentCheckProduce.class.getName());
+		AppointmentCheckProduce appointmentCheck = (AppointmentCheckProduce) context.getService(appointmentcheckpublisherReference);
+	}
+
+	public void stop(BundleContext bundleContext) throws Exception {
+		Activator.context = null;
+	}
+
+}
